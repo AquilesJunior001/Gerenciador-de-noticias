@@ -1,0 +1,103 @@
+<div class="container-fluid">
+
+  <nav class="nav nav-pills nav-justified">
+    <a class="nav-item nav-link" href="#Inicial" (click)="irPara('inicial')">Inicial</a>
+    <a class="nav-item nav-link" href="#Cadastrar" (click)="irPara('cadastrar')">Cadastrar</a>
+    <a class="nav-item nav-link" href="#Publicar" (click)="irPara('publicar')">Publicar</a>
+    <a class="nav-item nav-link" href="#Estatísticas" (click)="irPara('estatisticas')">Estatísticas</a>
+  </nav>
+
+  <div *ngIf="tela == 'inicial'">
+    <h2>Gerenciador de Noticias</h2>
+    <div *ngFor="let noticia of service.listaDeNoticias()">
+      <div *ngIf="noticia.publicar">
+        <li>
+          {{ noticia.noticia }}
+          <button class="btn btn-success" (click)="visualizar(noticia)">Ver</button>
+        </li>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tela == 'cadastrar'">
+    <form #formcadastrar="ngForm">
+      <h2><i class="fa fa-plus-circle"> Cadastrar Notícia</i></h2>
+      <div class="form-group">
+        <label for="autor">Autor</label>
+        <select class="form-control" name="autor" id="autor" [(ngModel)]="autor" required>
+          <option value="" selected disabled>Selecione um Autor</option>
+          <option *ngFor="let autor of service.listaDeAutores()">{{ autor }}</option>
+        </select>
+        <br>
+        <label for="noticia">Noticia</label>
+        <textarea type="text" class="form-control" id="noticia" name="noticia" rows="5" placeholder="Noticia" [(ngModel)]="noticia" required></textarea>
+      </div>
+      <button class="btn btn-primary" (click)="salvar('publicar')" [disabled]="!formcadastrar.form.valid">
+        <i class="fa fa-save"> Salvar</i>
+      </button>
+      <button class="btn btn-secondary" (click)="limpar()">Limpar</button>
+    </form>
+  </div>
+
+  <div *ngIf="tela == 'publicar'">
+    <h2>Publicar Noticia</h2>
+    <div *ngFor="let noticia of service.listaDeNoticias()">
+      <div *ngIf="noticia.publicar == false">
+        <li>
+          {{ noticia.noticia }}
+          <button class="btn btn-success" (click)="publicarNoticia(noticia)">Publicar</button>
+        </li>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tela == 'visualizar'">
+    <h3>Autor</h3>
+    {{ service.noticia.autor }}
+    <h3>Noticia</h3>
+    {{ service.noticia.noticia }}
+  </div>
+
+  <div *ngIf="tela == 'estatisticas'">
+    <h2>Estatísticas das Noticias</h2>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Autor</th>
+          <th scope="col">Quantidade de Noticias Publicadas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estatistica of service.noticiasPorAutor()">
+          <td>{{ estatistica.autor }}</td>
+          <td>{{ estatistica.valor }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-sm">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Autor que mais publica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>{{ service.AutorMaisPublicou() }}</td>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-sm">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Views</th>
+          <th scope="col">Noticia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let noticia of service.quatidadeDeViews()">
+          <td *ngIf="noticia.publicar == true">{{ noticia.views }}</td>
+          <td *ngIf="noticia.publicar == true">{{ noticia.noticia }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
