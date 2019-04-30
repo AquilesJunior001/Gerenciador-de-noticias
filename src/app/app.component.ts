@@ -19,10 +19,6 @@ export class AppComponent {
   irPara(valor) {
     this.tela = valor;
   }
-  limpar(){
-    this.autor = '';
-    this.noticia = '';
-  }
   salvar(valor) {
     this.service.salvarNoticia(this.autor, this.noticia, this.publicar);
     this.tela = valor;

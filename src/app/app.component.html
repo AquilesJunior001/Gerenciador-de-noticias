@@ -1,6 +1,7 @@
 <div class="container-fluid">
 
   <nav class="nav nav-pills nav-justified">
+    <a id="mudar" class="nav-item nav-link">Gerenciador<br> de Noticias</a>
     <a class="nav-item nav-link" href="#Inicial" (click)="irPara('inicial')">Inicial</a>
     <a class="nav-item nav-link" href="#Cadastrar" (click)="irPara('cadastrar')">Cadastrar</a>
     <a class="nav-item nav-link" href="#Publicar" (click)="irPara('publicar')">Publicar</a>
@@ -35,7 +36,7 @@
       <button class="btn btn-primary" (click)="salvar('publicar')" [disabled]="!formcadastrar.form.valid">
         <i class="fa fa-save"> Salvar</i>
       </button>
-      <button class="btn btn-secondary" (click)="limpar()">Limpar</button>
+      <button type="reset" class="btn btn-secondary">Limpar</button>
     </form>
   </div>
 

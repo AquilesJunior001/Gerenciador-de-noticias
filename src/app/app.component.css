@@ -1,10 +1,18 @@
 nav {
     background-color: black;
-    height: 80px;
+    height: 100px;
     align-items: center;
 }
 a {
     color: white;
+    font-size: 20px;
+    font-family: 'Times New Roman';
+}
+#mudar {
+    color: white;
+    font-size: 25px;
+    font-family: 'Times New Roman';
+    font-weight: 100;
 }
 h2 {
     font-family: 'Times New Roman';
